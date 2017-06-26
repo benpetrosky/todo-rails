@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  
+
   def new
     @list = List.find(params[:list_id])
     @task = @list.tasks.new
@@ -14,6 +14,37 @@ class TasksController < ApplicationController
       render :new
     end
   end
+
+  def edit
+    @list = List.find(params[:list_id])
+    @task = Task.find(params[:id])
+    render :edit
+  end
+
+  def update
+    @list = List.find(params[:list_id])
+    @task = Task.find(params[:id])
+
+    if task_params[:description] === "done_tasks"
+      @task.update(done_tasks: true)
+
+      redirect_to list_path(@task.list)
+    elsif @task.update(task_params)
+      redirect_to list_path(@task.list)
+      # redirect_to  list_path(@list)
+    else
+      render :edit
+    end
+  end
+
+
+
+  def destroy
+    @task = Task.find(params[:id])
+    @task.destroy
+    redirect_to list_path(@task.list)
+  end
+
 
 private
   def task_params
