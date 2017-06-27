@@ -1,9 +1,11 @@
 <% content_for(:title, "Lists | To Do") %>
 
-<h1>  <%= @list.name %> </h1>
+<h1 id="test">  <%= @list.name %> </h1>
 
 <% if @list.tasks.any? %>
   <h4>Here are the tasks for this list:</h4>
+
+<%= image_tag "ben's sunday.png", :id => "coffee_pic" %>
 
   <ul>
     <% @list.tasks.each do |task| %>
