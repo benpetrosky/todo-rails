@@ -1,23 +1,20 @@
 class ListsController < ApplicationController
   def index
     @lists = List.all
-    render :index
   end
+
   def show
     @list = List.find(params[:id])
-    render :show
   end
 
   def new
     @list = List.new
-    render :new
   end
 
   def edit
     @list = List.find(params[:id])
-    render :edit
   end
-  
+
   def destroy
     @list = List.find(params[:id])
     @list.destroy
@@ -38,12 +35,14 @@ class ListsController < ApplicationController
   def create
     @list = List.new(list_params)
     if @list.save
+      flash[:notice] = "Your list was saved successfully!"
       #redirect to individual list item
       redirect_to  list_path(@list)
 
       #redirect to the lists page
       # redirect_to  lists_path
     else
+      flash[:alert] = "fill in a name please!"
       render :new
     end
   end
